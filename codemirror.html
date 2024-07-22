@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/3024-day.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/3024-night.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/abcdef.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/base16-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/base16-light.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/bespin.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/eclipse.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/solarized.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/twilight.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/material-darker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/theme/panda-syntax.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/lua/lua.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/vb/vb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/sql/sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/mode/json/json.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .CodeMirror, .CodeMirror-scroll {
+            border: 1px solid #ccc;
+            height: 100%;
+            background-color: inherit;
+        }
+        .dark-theme, .dark-theme .CodeMirror, .dark-theme .CodeMirror-scroll {
+            background-color: #2e2e2e !important;
+            color: #ffffff;
+        }
+        .light-theme, .light-theme .CodeMirror, .light-theme .CodeMirror-scroll {
+            background-color: #ffffff !important;
+            color: #000000;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <textarea id="editor" name="editor"></textarea>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+            lineNumbers: true,
+            mode: "python",
+            theme: "default"
+        });
+
+        function changeTheme(theme) {
+            editor.setOption("theme", theme);
+            adaptBackgroundColor(theme);
+        }
+
+        function changeMode(mode) {
+            var modeMap = {
+                "python": "python",
+                "javascript": "javascript",
+                "xml": "xml",
+                "css": "css",
+                "c": "text/x-csrc",
+                "cpp": "text/x-c++src",
+                "csharp": "text/x-csharp",
+                "lua": "lua",
+                "vb": "vb",
+                "sql": "text/x-sql",
+                "json": "application/json",
+                "java": "text/x-java"
+            };
+            editor.setOption("mode", modeMap[mode] || mode);
+        }
+
+        function adaptBackgroundColor(theme) {
+            var darkThemes = [
+                "3024-night", "base16-dark", "dracula", "monokai", "solarized dark",
+                "twilight", "material-darker", "panda-syntax"
+            ];
+            if (darkThemes.includes(theme)) {
+                document.body.classList.add("dark-theme");
+                document.body.classList.remove("light-theme");
+            } else {
+                document.body.classList.add("light-theme");
+                document.body.classList.remove("dark-theme");
+            }
+        }
+    </script>
+</body>
+</html>
